@@ -1,6 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `iqm` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `iqm`;
--- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: iqm
 -- ------------------------------------------------------
@@ -38,7 +36,7 @@ CREATE TABLE `question` (
   UNIQUE KEY `statement_UNIQUE` (`statement`),
   KEY `fk_question_subject_idx` (`idsubject`),
   CONSTRAINT `fk_question_subject` FOREIGN KEY (`idsubject`) REFERENCES `subject` (`idsubject`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,6 +45,7 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
+INSERT INTO `question` VALUES (1,'Qual o resultado do produto interno de dois vetores ortogonais?','0','Produto Interno','Vetores perpendiculares.','1, -1, 0, A norma do primeiro vetor','0',1),(2,'Qual a unidade de medida da resistência elétrica?','Ohm','Lei de Ohm','É a letra grega ômega (Ω).','Volt, Ampère, Watt, Ohm','0',2),(3,'Qual lei afirma que a soma das correntes que entram em um nó é igual à soma das correntes que saem?','Lei de Kirchhoff das Correntes (LKC)','Análise de Nodos','Baseada na conservação de carga.','Lei de Ohm, Lei de Kirchhoff das Tensões, Lei de Kirchhoff das Correntes (LKC), Teorema de Thévenin','0',2),(4,'Qual transformada é usada para analisar sistemas LTI contínuos no tempo?','Transformada de Laplace','Análise de Sistemas','É a análoga da Transformada Z para tempo discreto.','Transformada de Fourier, Transformada Z, Transformada de Laplace, Wavelet','0',3),(5,'O que representa o termo PM (Phase Margin) no diagrama de Bode?','Margem de Fase','Estabilidade','Mede a estabilidade do sistema em relação à fase.','Ponto de Máximo, Margem de Ganho, Margem de Fase, Erro em Regime','0',4),(6,'Em um sistema de controle, o que é o \"overshoot\"?','Pico máximo da resposta além do valor final','Resposta Transitória','Acontece em sistemas subamortecidos.','Tempo de Acomodação, Pico máximo da resposta além do valor final, Erro de Regime, Frequência Natural','0',4),(7,'Qual componente semicondutor permite a passagem de corrente em apenas uma direção?','Diodo','Componentes Básicos','É usado em retificadores.','Transistor, Resistor, Diodo, Capacitor','0',5),(8,'Qual é a principal aplicação do Transistor BJT (Bipolar Junction Transistor)?','Amplificação e Chaveamento','Transistores','Pode operar nas regiões de corte, saturação ou ativa.','Regulagem de Tensão, Filtros, Medição de Temperatura, Amplificação e Chaveamento','0',5),(9,'Qual porta lógica executa a negação de uma AND?','NAND','Portas Lógicas','É a combinação de NOT e AND.','OR, NOR, XOR, NAND','0',6);
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-23 16:52:40
+-- Dump completed on 2025-10-30 15:13:59
