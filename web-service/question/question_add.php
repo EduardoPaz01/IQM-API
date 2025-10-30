@@ -20,24 +20,24 @@ $idsubject = isset($json['idsubject']) ? (int)$json['idsubject'] : null;
 
 // campos obrigatórios: statement, answer, topic, tip, idsubject
 if ($statement === null || $answer === null || $topic === null || $tip === null || $idsubject === null) {
-    echo json_encode(['success' => false, 'message' => 'Campos obrigatórios: statement, answer, topic, tip, idsubject']);
-    $con->close();
-    exit;
+  echo json_encode(['success' => false, 'message' => 'Campos obrigatórios: statement, answer, topic, tip, idsubject']);
+  $con->close();
+  exit;
 }
 
 $stmt = $con->prepare('INSERT INTO `question` (statement, answer, topic, tip, `options`, `black-list`, idsubject) VALUES (?, ?, ?, ?, ?, ?, ?)');
 if (!$stmt) {
-    echo json_encode(['success' => false, 'message' => 'Erro ao preparar INSERT: ' . $con->error]);
-    $con->close();
-    exit;
+  echo json_encode(['success' => false, 'message' => 'Erro ao preparar INSERT: ' . $con->error]);
+  $con->close();
+  exit;
 }
 
 $stmt->bind_param('ssssssi', $statement, $answer, $topic, $tip, $options, $blacklist, $idsubject);
 
 if ($stmt->execute()) {
-    echo json_encode(['success' => true, 'message' => 'Question inserida com sucesso', 'idquestion' => $con->insert_id]);
+  echo json_encode(['success' => true, 'message' => 'Question inserida com sucesso', 'idquestion' => $con->insert_id]);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Erro ao inserir: ' . $stmt->error]);
+  echo json_encode(['success' => false, 'message' => 'Erro ao inserir: ' . $stmt->error]);
 }
 
 $stmt->close();
