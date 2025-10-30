@@ -11,7 +11,7 @@ $con->set_charset("utf8");
 
 $json = json_decode(file_get_contents('php://input'), true);
 if (!is_array($json)) {
-    $json = $_POST;
+  $json = $_POST;
 }
 
 $id = isset($json['idsubject']) ? (int)$json['idsubject'] : null;
@@ -20,9 +20,9 @@ $topic = isset($json['topic']) ? $json['topic'] : null;
 $description = isset($json['description']) ? $json['description'] : null;
 
 if (!$id) {
-    echo json_encode(['success' => false, 'message' => 'idsubject é obrigatório para modificar.']);
-    $con->close();
-    exit;
+  echo json_encode(['success' => false, 'message' => 'idsubject é obrigatório para modificar.']);
+  $con->close();
+  exit;
 }
 
 // construir SET dinamicamente
@@ -31,25 +31,25 @@ $params = [];
 $types = '';
 
 if ($name !== null) {
-    $sets[] = 'name = ?';
-    $params[] = $name;
-    $types .= 's';
+  $sets[] = 'name = ?';
+  $params[] = $name;
+  $types .= 's';
 }
 if ($topic !== null) {
-    $sets[] = 'topic = ?';
-    $params[] = $topic;
-    $types .= 's';
+  $sets[] = 'topic = ?';
+  $params[] = $topic;
+  $types .= 's';
 }
 if ($description !== null) {
-    $sets[] = 'description = ?';
-    $params[] = $description;
-    $types .= 's';
+  $sets[] = 'description = ?';
+  $params[] = $description;
+  $types .= 's';
 }
 
 if (!$sets) {
-    echo json_encode(['success' => false, 'message' => 'Nenhum campo para atualizar.']);
-    $con->close();
-    exit;
+  echo json_encode(['success' => false, 'message' => 'Nenhum campo para atualizar.']);
+  $con->close();
+  exit;
 }
 
 $sql = 'UPDATE subject SET ' . implode(', ', $sets) . ' WHERE idsubject = ?';
@@ -58,9 +58,9 @@ $types .= 'i';
 
 $stmt = $con->prepare($sql);
 if (!$stmt) {
-    echo json_encode(['success' => false, 'message' => 'Erro ao preparar atualização: ' . $con->error]);
-    $con->close();
-    exit;
+  echo json_encode(['success' => false, 'message' => 'Erro ao preparar atualização: ' . $con->error]);
+  $con->close();
+  exit;
 }
 
 // bind dinâmico
@@ -70,9 +70,9 @@ array_unshift($refs, $types);
 call_user_func_array([$stmt, 'bind_param'], $refs);
 
 if ($stmt->execute()) {
-    echo json_encode(['success' => true, 'message' => 'Registro atualizado com sucesso', 'affected_rows' => $stmt->affected_rows]);
+  echo json_encode(['success' => true, 'message' => 'Registro atualizado com sucesso', 'affected_rows' => $stmt->affected_rows]);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Erro ao executar atualização: ' . $stmt->error]);
+  echo json_encode(['success' => false, 'message' => 'Erro ao executar atualização: ' . $stmt->error]);
 }
 
 $stmt->close();

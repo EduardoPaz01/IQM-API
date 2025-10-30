@@ -15,7 +15,7 @@ $json = json_decode(file_get_contents('php://input'), true);
 
 // se não vier JSON, tenta usar $_POST (opcional)
 if (!is_array($json)) {
-    $json = $_POST;
+  $json = $_POST;
 }
 
 // extrair campos (sem validações)
@@ -26,16 +26,16 @@ $description = $json['description'] ?? null;
 // preparar e executar INSERT
 $stmt = $con->prepare("INSERT INTO subject (name, topic, description) VALUES (?, ?, ?)");
 if (!$stmt) {
-    echo json_encode(['success' => false, 'message' => 'Erro ao preparar consulta: ' . $con->error]);
-    exit;
+  echo json_encode(['success' => false, 'message' => 'Erro ao preparar consulta: ' . $con->error]);
+  exit;
 }
 
 $stmt->bind_param("sss", $name, $topic, $description);
 
 if ($stmt->execute()) {
-    echo json_encode(['success' => true, 'message' => 'Subject inserido com sucesso', 'idsubject' => $con->insert_id]);
+  echo json_encode(['success' => true, 'message' => 'Subject inserido com sucesso', 'idsubject' => $con->insert_id]);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Erro ao inserir: ' . $stmt->error]);
+  echo json_encode(['success' => false, 'message' => 'Erro ao inserir: ' . $stmt->error]);
 }
 
 $stmt->close();
@@ -43,9 +43,9 @@ $con->close();
 
 /*
 {
-    "name": "subject",
-    "topic": "topic",
-    "description": "lorem..."
+  "name": "subject",
+  "topic": "topic",
+  "description": "lorem..."
 }
 */
 
